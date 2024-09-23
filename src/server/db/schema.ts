@@ -1,5 +1,6 @@
 import { relations, sql } from "drizzle-orm";
 import {
+  decimal,
   index,
   integer,
   pgTableCreator,
@@ -19,11 +20,13 @@ import { type AdapterAccount } from "next-auth/adapters";
  */
 export const createTable = pgTableCreator((name) => `expenses_${name}`);
 
-export const posts = createTable(
-  "post",
+export const expenses = createTable(
+  "expense",
   {
     id: serial("id").primaryKey(),
-    name: varchar("name", { length: 256 }),
+    amount: decimal("amount", { precision: 12, scale: 2 }).notNull(),
+    description: varchar("description", { length: 100 }).notNull(),
+    tags: varchar("tags", { length: 100 }).notNull(),
     createdById: varchar("created_by", { length: 255 })
       .notNull()
       .references(() => users.id),
@@ -36,7 +39,6 @@ export const posts = createTable(
   },
   (example) => ({
     createdByIdIdx: index("expenses_created_by_idx").on(example.createdById),
-    nameIndex: index("expenses_name_idx").on(example.name),
   })
 );
 
