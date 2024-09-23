@@ -5,6 +5,7 @@ import { db } from "~/server/db";
 import { desc, eq } from "drizzle-orm";
 import { expenses } from "~/server/db/schema";
 import Link from "next/link";
+import ClientDate from "./ClientDate";
 
 export default async function Home() {
   const session = await getServerAuthSession();
@@ -41,7 +42,7 @@ export default async function Home() {
                 </Flex>
               )}
               <Flex justify="right">
-                <Text>{transaction.createdAt.toLocaleString()}</Text>
+                <Text><ClientDate date={transaction.createdAt}/></Text>
               </Flex>
             </Stack>
           </Card>
