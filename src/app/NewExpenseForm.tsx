@@ -25,7 +25,7 @@ export default function NewExpenseForm() {
     }, [state?.expenseID]);
 
     return (
-        <form action={formAction} style={{ width: "300px" }}>
+        <form action={formAction} style={{ flexBasis: 0, flexGrow: 1, minWidth: "330px" }}>
             <Stack gap="sm">
                 <Title order={2}>New expense</Title>
                 { state?.error && <Alert variant="light" color="red" title="Error">{state.error}</Alert> }

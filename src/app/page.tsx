@@ -25,12 +25,14 @@ export default async function Home() {
 
   // https://www.reddit.com/r/nextjs/comments/i9fndq/comment/g1fhao0/
   // https://stackoverflow.com/q/76014188
+  // https://vercel.com/docs/edge-network/headers#x-vercel-ip-timezone
   const timeZone = headers().get("x-vercel-ip-timezone") ?? undefined;
 
+  // https://stackoverflow.com/a/25066844
   return (
-    <Flex gap="50px" justify="center" wrap="wrap">
+    <Flex gap="50px" justify="center" wrap="wrap" style={{ maxWidth: "900px", margin: "auto" }}>
       <NewExpenseForm />
-      <Stack gap="sm" miw="300px" maw="400px">
+      <Stack gap="sm" style={{ flexBasis: 0, flexGrow: 1, minWidth: "330px" }}>
         <Title order={2}>Recent transactions</Title>
         <Anchor component={Link} href="/transactions">View all transactions</Anchor>
         { transactions.map(transaction => (
