@@ -5,7 +5,7 @@ import { db } from "~/server/db";
 import { desc, eq } from "drizzle-orm";
 import { expenses } from "~/server/db/schema";
 import Link from "next/link";
-import ClientDate from "./ClientDate";
+import { headers } from "next/headers";
 
 export default async function Home() {
   const session = await getServerAuthSession();
@@ -22,6 +22,10 @@ export default async function Home() {
     orderBy: desc(expenses.createdAt),
     limit: 10,
   });
+
+  // https://www.reddit.com/r/nextjs/comments/i9fndq/comment/g1fhao0/
+  // https://stackoverflow.com/q/76014188
+  const timeZone = headers().get("x-vercel-ip-timezone") ?? undefined;
 
   return (
     <Flex gap="50px" justify="center" wrap="wrap">
@@ -42,7 +46,7 @@ export default async function Home() {
                 </Flex>
               )}
               <Flex justify="right">
-                <Text><ClientDate date={transaction.createdAt}/></Text>
+                <Text>{transaction.createdAt.toLocaleString("en-US", { timeZone })}</Text>
               </Flex>
             </Stack>
           </Card>
