@@ -1,7 +1,9 @@
 import "~/styles/globals.css";
+import "@mantine/core/styles.css";
 
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
+import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 
 export const metadata: Metadata = {
   title: "Create T3 App",
@@ -14,7 +16,14 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={GeistSans.className}>{children}</body>
+      <head>
+        <ColorSchemeScript />
+      </head>
+      <body className={GeistSans.className}>
+        <MantineProvider>
+          {children}
+        </MantineProvider>
+      </body>
     </html>
   );
 }
