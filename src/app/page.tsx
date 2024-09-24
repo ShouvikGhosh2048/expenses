@@ -1,7 +1,7 @@
 import { getServerAuthSession } from "~/server/auth";
 import NewExpenseForm from "./NewExpenseForm";
 import { Flex, Stack } from "@mantine/core";
-import RecentTransactions from "./RecentTransactions";
+import RecentExpenses from "./RecentExpenses";
 import { Suspense } from "react";
 
 export default async function Home() {
@@ -21,7 +21,7 @@ export default async function Home() {
       <Suspense fallback={
         <Stack gap="sm" style={{ flexBasis: 0, flexGrow: 1, minWidth: "330px" }}></Stack>
       }>
-        <RecentTransactions userID={session.user.id}/>
+        <RecentExpenses userID={session.user.id}/>
       </Suspense>
     </Flex>
   );
