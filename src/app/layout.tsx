@@ -27,7 +27,7 @@ export default async function RootLayout({
       </head>
       <body className={GeistSans.className}>
         <MantineProvider>
-          <Flex p="5px" h="50px" justify="space-between" align="center"
+          <Flex p="10px" h="50px" justify="space-between" align="center"
                 style={{ "borderBottom": "1px solid rgb(210,210,210)" }}>
             <Link href="/">
               <Text size="lg">Home</Text>
@@ -42,7 +42,7 @@ export default async function RootLayout({
               )}
             </Flex>
           </Flex>
-          <div style={{ padding: "5px" }}>
+          <div style={{ padding: "10px" }}>
             {children}
           </div>
         </MantineProvider>
