@@ -1,5 +1,5 @@
 import { getServerAuthSession } from "~/server/auth";
-import NewExpenseForm from "./NewExpenseForm";
+import { CreateExpenseForm } from "./ExpenseForm";
 import { Flex, Stack } from "@mantine/core";
 import RecentExpenses from "./RecentExpenses";
 import { Suspense } from "react";
@@ -17,7 +17,7 @@ export default async function Home() {
   // https://stackoverflow.com/a/25066844
   return (
     <Flex gap="50px" justify="center" wrap="wrap" style={{ maxWidth: "900px", margin: "auto" }}>
-      <NewExpenseForm />
+      <CreateExpenseForm />
       <Suspense fallback={
         <Stack gap="sm" style={{ flexBasis: 0, flexGrow: 1, minWidth: "330px" }}></Stack>
       }>

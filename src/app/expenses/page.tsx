@@ -4,6 +4,7 @@ import { headers } from "next/headers";
 import { getServerAuthSession } from "~/server/auth";
 import { db } from "~/server/db";
 import { expenses } from "~/server/db/schema";
+import ExpenseCard from "../ExpenseCard";
 
 export default async function Expenses() {
     const session = await getServerAuthSession();
@@ -46,24 +47,7 @@ export default async function Expenses() {
         );
         for (let k = i; k < j; k++) {
             const expense = userExpenses[k]!;
-            cards.push(
-                <Card key={expense.id} withBorder>
-                    <Stack gap="5px">
-                    <Text fw={700}>{expense.amount}</Text>
-                    {expense.description && <Text>{expense.description}</Text>}
-                    {expense.tags && (
-                        <Flex wrap="wrap" gap="sm">
-                        { expense.tags.split(',').filter(tag => tag.length > 0).map((tag, i) => (
-                            <Pill key={i} size="md">{tag}</Pill>
-                        )) }
-                        </Flex>
-                    )}
-                    <Flex justify="right">
-                        <Text>{expense.createdAt.toLocaleString("en-US", { timeZone })}</Text>
-                    </Flex>
-                    </Stack>
-                </Card>
-            );
+            cards.push(<ExpenseCard key={expense.id} expense={expense} timeZone={timeZone}/>);
         }
         i = j;
     }

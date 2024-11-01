@@ -4,6 +4,7 @@ import { headers } from "next/headers";
 import Link from "next/link";
 import { db } from "~/server/db";
 import { expenses } from "~/server/db/schema";
+import ExpenseCard from "./ExpenseCard";
 
 export default async function RecentExpenses(props: { userID: string }) {
     const userExpenses = await db.query.expenses.findMany({
@@ -21,24 +22,7 @@ export default async function RecentExpenses(props: { userID: string }) {
         <Stack gap="sm" style={{ flexBasis: 0, flexGrow: 1, minWidth: "330px" }}>
             <Title order={2}>Recent expenses</Title>
             <Anchor component={Link} href="/expenses">View all expenses</Anchor>
-            { userExpenses.map(expense => (
-            <Card key={expense.id} withBorder>
-                <Stack gap="5px">
-                <Text fw={700}>{expense.amount}</Text>
-                {expense.description && <Text>{expense.description}</Text>}
-                {expense.tags && (
-                    <Flex wrap="wrap" gap="sm">
-                    { expense.tags.split(',').filter(tag => tag.length > 0).map((tag, i) => (
-                        <Pill key={i} size="md">{tag}</Pill>
-                    )) }
-                    </Flex>
-                )}
-                <Flex justify="right">
-                    <Text>{expense.createdAt.toLocaleString("en-US", { timeZone })}</Text>
-                </Flex>
-                </Stack>
-            </Card>
-            ))}
+            { userExpenses.map(expense => <ExpenseCard key={expense.id} expense={expense} timeZone={timeZone}/>) }
         </Stack>
     );
 }
